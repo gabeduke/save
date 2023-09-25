@@ -1,6 +1,6 @@
 # Save
 
-`go get github.com/gabeduke/save`
+`go install github.com/gabeduke/save@latest`
 
 This utility saves aws credentials from the environment to the AWS Credentials file. For use with AWS-Keycloak.
 
