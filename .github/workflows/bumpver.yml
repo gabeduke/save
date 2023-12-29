@@ -16,4 +16,4 @@ jobs:
       - name: Bump version
         uses: gabeduke/bumpver-action@v1.0.9
         with:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
