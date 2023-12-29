@@ -1,0 +1,19 @@
+name: Bump Version
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  bump_version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+    
+      - name: Bump version
+        uses: gabeduke/bumpver-action@v1.0.8
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
