@@ -5,6 +5,7 @@ import (
 	"path"
 
 	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/gookit/ini"
 	"github.com/mitchellh/go-homedir"
 	log "github.com/sirupsen/logrus"
@@ -12,15 +13,24 @@ import (
 )
 
 var profiles = []string{"default"}
+var useExternalProvider bool
 
 func main() {
 
 	setup()
 
 	log.Debug("parsing aws credentials from default chain")
-	sess := session.Must(session.NewSession())
+	var creds credentials.Value
+	var err error
 
-	creds, err := sess.Config.Credentials.Get()
+	if useExternalProvider {
+		log.Debug("using external credentials provider")
+		creds, err = getExternalCredentials()
+	} else {
+		sess := session.Must(session.NewSession())
+		creds, err = sess.Config.Credentials.Get()
+	}
+
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -57,6 +67,7 @@ func setup() {
 	var profile string
 
 	flag.StringVarP(&profile, "profile", "p", "", "AWS profile to use")
+	flag.BoolVar(&useExternalProvider, "use-external-provider", false, "Use AWS external credentials provider")
 	flag.Parse()
 
 	log.Debug("parsing Keycloak profile from environment")
@@ -67,4 +78,10 @@ func setup() {
 	if profile != "" {
 		profiles = append(profiles, profile)
 	}
+}
+
+func getExternalCredentials() (credentials.Value, error) {
+	// Implement the logic to get credentials from the external provider
+	// This is a placeholder function and should be replaced with actual implementation
+	return credentials.Value{}, nil
 }

@@ -12,3 +12,14 @@ Usage:
 $ aws-keycloak -p [profile] -- save
 INFO[0000] Write AWS Session to file successful!
 ```
+
+### New Feature: Use AWS External Credentials Provider
+
+You can now use the AWS external credentials provider by adding the `--use-external-provider` flag.
+
+Usage:
+
+```bash
+$ aws-keycloak -p [profile] -- save --use-external-provider
+INFO[0000] Write AWS Session to file successful!
+```
